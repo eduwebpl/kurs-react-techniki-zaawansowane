@@ -3,7 +3,7 @@ import React from "react";
 const withCollapse = WrappedComponent => {
   return class WithCollapse extends React.Component {
     state = {
-      isCollapsed: false,
+      isCollapsed: true,
     };
 
     toggle = () => {
@@ -16,7 +16,11 @@ const withCollapse = WrappedComponent => {
       const { isCollapsed } = this.state;
 
       return (
-        <WrappedComponent isCollapsed={isCollapsed} toggle={this.toggle} />
+        <WrappedComponent
+          isCollapsed={isCollapsed}
+          toggle={this.toggle}
+          {...this.props}
+        />
       );
     }
   };
