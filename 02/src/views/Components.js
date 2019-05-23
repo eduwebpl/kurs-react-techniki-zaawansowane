@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import cx from "classnames";
 import styles from "./Components.module.scss";
 
 const Components = () => {
-  const [inputContent, setInputContent] = useState("Write your task");
+  const [inputsContent, setInputContent] = useReducer(
+    (state, newState) => ({ ...state, ...newState }),
+    {
+      searchInputContent: "",
+      itemInputContent: "",
+    }
+  );
+
   const [itemsList, setItemsList] = useState([
     {
       id: "1",
@@ -12,12 +19,14 @@ const Components = () => {
   ]);
 
   const handleInputChange = e => {
-    setInputContent(e.target.value);
+    setInputContent({
+      [e.target.name]: e.target.value,
+    });
   };
 
   const addNewItem = () => {
     const newElement = {
-      content: inputContent,
+      content: inputsContent.itemInputContent,
       id: itemsList.length + 1,
     };
 
@@ -32,13 +41,25 @@ const Components = () => {
 
   return (
     <div className={styles.wrapper}>
-      <h2 className="title is-3">Components</h2>
+      <label htmlFor="search">Search items by content</label>
       <input
         autoComplete="off"
-        class="input is-large"
-        name="name"
+        className="input is-large"
+        name="searchInputContent"
+        id="search"
         type="text"
-        value={inputContent}
+        placeholder="Search item"
+        value={inputsContent.searchInputContent}
+        onChange={handleInputChange}
+      />
+      <hr />
+      <input
+        autoComplete="off"
+        className="input is-large"
+        name="itemInputContent"
+        type="text"
+        placeholder="Create new item"
+        value={inputsContent.itemInputContent}
         onChange={handleInputChange}
       />
       <button
@@ -47,12 +68,21 @@ const Components = () => {
       >
         Add item
       </button>
-      {itemsList.map(item => (
-        <div key={item.id} className={cx("notification is-info", styles.item)}>
-          <button className="delete" onClick={() => removeElement(item.id)} />
-          {item.content}
-        </div>
-      ))}
+      {itemsList
+        .filter(item =>
+          item.content
+            .toLowerCase()
+            .includes(inputsContent.searchInputContent.toLowerCase())
+        )
+        .map(item => (
+          <div
+            key={item.id}
+            className={cx("notification is-info", styles.item)}
+          >
+            <button className="delete" onClick={() => removeElement(item.id)} />
+            {item.content}
+          </div>
+        ))}
     </div>
   );
 };
