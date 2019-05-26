@@ -1,25 +1,18 @@
-import React, { useRef } from "react";
-
-const style = {
-  transition: "transform 1s ease-in",
-  width: "100px",
-  transformOrigin: "0% 50%",
-  display: "block",
-};
+import React, { useRef, useEffect } from "react";
+import styles from "./Components.module.scss";
+import TweenMax from "gsap/TweenMax";
 
 const Components = () => {
-  const myInputRef = useRef(null);
+  const boxRef = useRef(null);
 
-  const handleClick = () => {
-    myInputRef.current.focus();
-    myInputRef.current.style.transform = "scaleX(2)";
-  };
+  useEffect(() => {
+    TweenMax.from(boxRef.current, 1, { x: "-100%", opacity: 0, scale: 5 });
+  });
 
   return (
     <div>
       <h2 className="title is-3">Components</h2>
-      <input style={style} ref={myInputRef} />
-      <button onClick={handleClick}>focus input</button>
+      <div ref={boxRef} className={styles.box} />
     </div>
   );
 };
