@@ -1,0 +1,23 @@
+.userStatus {
+  position: relative;
+
+  &::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    position: absolute;
+    background-color: grey;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &.isActive {
+    font-weight: bold;
+
+    &::before {
+      background-color: hsl(75, 90%, 50%);
+    }
+  }
+}
