@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useDetectOutsideClick } from "hooks/useDetectOutsideClick";
 import cx from "classnames";
 
 const Users = () => {
   const [isModalVisible, setModalVisibility] = useState(false);
+  const modalRef = useRef(null);
+
+  useDetectOutsideClick(modalRef, setModalVisibility);
 
   return (
     <div>
@@ -15,17 +19,17 @@ const Users = () => {
       </button>
       <div className={cx("modal", { "is-active": isModalVisible })}>
         <div className="modal-background" />
-        <div className="modal-content">
-          <article class="message">
-            <div class="message-header">
+        <div ref={modalRef} className="modal-content">
+          <article className="message">
+            <div className="message-header">
               <p>Hello World</p>
               <button
-                class="delete"
+                className="delete"
                 aria-label="delete"
                 onClick={() => setModalVisibility(false)}
               />
             </div>
-            <div class="message-body">
+            <div className="message-body">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.{" "}
               <strong>Pellentesque risus mi</strong>, tempus quis placerat ut,
               porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla.
