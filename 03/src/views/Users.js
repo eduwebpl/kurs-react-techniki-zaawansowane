@@ -1,23 +1,15 @@
-import React, { useContext } from "react";
-
-const MyContext = React.createContext();
-
-const User = () => {
-  const context = useContext(MyContext);
-
-  return (
-    <div>
-      <p>User name: {context.name}</p>
-    </div>
-  );
-};
+import React from "react";
+import * as MultiStep from "components/MultiStep/MultiStep";
 
 const Users = () => (
   <div>
-    <MyContext.Provider value={{ name: "Roman" }}>
-      <h2 className="title is-3">Users</h2>
-      <User />
-    </MyContext.Provider>
+    <p>Users</p>
+    <MultiStep.Wizard>
+      <MultiStep.Controls />
+      <MultiStep.Page>Page 1</MultiStep.Page>
+      <MultiStep.Page>Page 2</MultiStep.Page>
+      <MultiStep.Page>Page 3</MultiStep.Page>
+    </MultiStep.Wizard>
   </div>
 );
 
