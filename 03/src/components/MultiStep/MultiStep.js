@@ -7,6 +7,33 @@ const WizardContext = React.createContext({
   updatePageIndexes: () => {},
 });
 
+const ProgressBar = () => {
+  const { currentPage, pageIndexes } = useContext(WizardContext);
+
+  const outerWrapperStyle = {
+    width: "100%",
+    height: "10px",
+    backgroundColor: "lightgrey",
+    borderRadius: "10px",
+  };
+
+  const innerBarStyle = {
+    width: "100%",
+    height: "10px",
+    backgroundColor: "blue",
+    borderRadius: "10px",
+    transition: "transform .5s ease-out",
+    transform: `scaleX(${currentPage / pageIndexes.length})`,
+    transformOrigin: "0% 50%",
+  };
+
+  return (
+    <div style={outerWrapperStyle}>
+      <div style={innerBarStyle} />
+    </div>
+  );
+};
+
 const Page = ({ children, pageIndex }) => {
   const { currentPage, updatePageIndexes } = useContext(WizardContext);
 
@@ -73,4 +100,4 @@ const Wizard = ({ children }) => {
   );
 };
 
-export { Page, Controls, Wizard };
+export { ProgressBar, Page, Controls, Wizard };

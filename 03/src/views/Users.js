@@ -24,6 +24,7 @@ const Users = () => (
           </div>
         </MultiStep.Page>
         <MultiStep.Controls className="columns is-centered" />
+        <MultiStep.ProgressBar />
       </MultiStep.Wizard>
     </div>
   </div>
