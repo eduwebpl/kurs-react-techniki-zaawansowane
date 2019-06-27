@@ -1,20 +1,32 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import Input from "./Input";
 
 describe("Input component", () => {
   it("renders input element", () => {
-    const placeholderText = "First Name";
-    const { getByPlaceholderText } = render(
-      <Input placeholder={placeholderText} />
-    );
+    const { getByLabelText } = render(<Input name="Name" label="Name" />);
+
+    expect(getByLabelText("Name")).toBeInTheDocument();
+  });
+  it("displays placeholder", () => {
+    let placeholderText = "Your Value";
+    const { getByPlaceholderText, rerender } = render(<Input />);
+
+    expect(getByPlaceholderText(placeholderText)).toBeInTheDocument();
+
+    placeholderText = "Name";
+    rerender(<Input placeholder={placeholderText} />);
 
     expect(getByPlaceholderText(placeholderText)).toBeInTheDocument();
   });
-  it("displays default placeholder", () => {
-    const defaultPlaceholderText = "Your Value";
-    const { getByPlaceholderText } = render(<Input />);
+  it("displays proper value", () => {
+    const { getByLabelText } = render(<Input name="Name" label="Name" />);
+    const input = getByLabelText(/name/i);
 
-    expect(getByPlaceholderText(defaultPlaceholderText)).toBeInTheDocument();
+    expect(input).toBeInTheDocument();
+
+    fireEvent.change(input, { target: { value: "roman" } });
+
+    expect(input).toHaveValue("roman");
   });
 });
