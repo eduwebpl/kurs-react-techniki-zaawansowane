@@ -29,4 +29,18 @@ describe("Input component", () => {
 
     expect(input).toHaveValue("roman");
   });
+  it("prevents user from passing numbers", () => {
+    const { getByLabelText } = render(<Input name="name" label="name" />);
+
+    const input = getByLabelText(/name/i);
+
+    fireEvent.change(input, { target: { value: "roman1234" } });
+    expect(input).toHaveValue("roman");
+
+    fireEvent.change(input, { target: { value: "roman1234roman" } });
+    expect(input).toHaveValue("romanroman");
+
+    fireEvent.change(input, { target: { value: "roman1234roman!" } });
+    expect(input).toHaveValue("romanroman!");
+  });
 });
