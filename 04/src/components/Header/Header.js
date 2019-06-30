@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { LangContext } from 'context';
 
-const Header = () => (
+const Header = () => {
+  const context = useContext(LangContext);
+  
+  return (
   <section className="hero is-primary">
     <div className="hero-head">
       <nav className="navbar">
         <div className="navbar-end">
-          <button className="button is-medium is-primary">PL</button>
-          <button className="button is-medium is-primary">EN</button>  
+            <button onClick={() => context.setLanguage('pl')} className="button is-medium is-primary">PL</button>
+          <button onClick={() => context.setLanguage('en')} className="button is-medium is-primary">EN</button>  
         </div>
+        <p>Current language: {context.currentLanguage}</p>
       </nav>
     </div>
     <div className="hero-body">
@@ -32,6 +37,7 @@ const Header = () => (
       </nav>
     </div>
   </section>
-);
+) 
+};
 
 export default Header;

@@ -4,7 +4,7 @@ import Header from "components/Header/Header";
 import Users from "views/Users.js";
 import Contact from "views/Contact.js";
 import styles from "./App.module.scss";
-import { LangContext } from './context';
+import { LangContext } from 'context';
 
 class App extends Component {
   setLanguage = (lang) => {
