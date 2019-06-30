@@ -3,10 +3,18 @@ import { NavLink } from "react-router-dom";
 
 const Header = () => (
   <section className="hero is-primary">
+    <div className="hero-head">
+      <nav className="navbar">
+        <div className="navbar-end">
+          <button className="button is-medium is-primary">PL</button>
+          <button className="button is-medium is-primary">EN</button>  
+        </div>
+      </nav>
+    </div>
     <div className="hero-body">
       <div className="container has-text-centered">
-        <h1 className="title">Magia Reacta</h1>
-        <h2 className="subtitle">kurs zaawansowany</h2>
+        <h1 className="title">The magic of React</h1>
+        <h2 className="subtitle">advanced course</h2>
       </div>
     </div>
     <div className="hero-foot">
