@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import { rootAPI } from 'api';
 
 const Users = () => {
   const [usersData, setUsersData] = useState([]);
@@ -7,17 +8,17 @@ const Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const { data } = await axios.get('http://www.mocky.io/v2/5d1bb9033400003700000934?mocky-delay=300ms');
+        const { data } = await axios.get(rootAPI);
         
         setUsersData(data);
       }
       catch (err) {
-        console.log(err);
+        // console.log(err);
       }
       
     }
     fetchUsers();
-  });
+  }, []);
   
   return (
     <div>
